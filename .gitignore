@@ -1,0 +1,4 @@
+outputs/media/**
+!outputs/media/
+!outputs/media/.gitkeep
+

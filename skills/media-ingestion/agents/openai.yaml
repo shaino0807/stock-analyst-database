@@ -1,0 +1,5 @@
+interface:
+  display_name: "Media Ingestion"
+  short_description: "Collect media for analysis workflows."
+  default_prompt: "Use $media-ingestion to collect authorized video subtitles, audio, metadata, or local media artifacts for downstream analysis."
+
