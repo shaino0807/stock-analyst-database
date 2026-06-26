@@ -2,6 +2,14 @@
 
 這個專案提供一組保守使用的本地媒體擷取流程，讓後續 agent 可以做轉錄、摘要、腳本分析、剪輯規劃、分類與知識庫整理。
 
+## 專案工作模式
+
+- 固定規則與專案邊界記在 `AGENTS.md`。
+- 進度、下一步與踩坑紀錄放在 Obsidian 專案駕駛艙；目前 vault 路徑尚未指定。
+- 本地 Git 已初始化，預設 branch 使用 `main`。
+- GitHub remote、GitHub Pages 與 Obsidian 駕駛艙路徑待指定後再建立或啟用。
+- Firebase MCP 預設不使用，除非明確要求。
+
 ## 功能
 
 - `scripts/download-video.ps1`：輸入網址，下載影片到 `outputs/media/videos/`

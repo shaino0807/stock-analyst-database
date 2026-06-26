@@ -2,3 +2,30 @@ outputs/media/**
 !outputs/media/
 !outputs/media/.gitkeep
 
+# System files
+desktop.ini
+Thumbs.db
+.DS_Store
+*.tmp
+~$*
+
+# Sensitive data
+.env
+.env.*
+*.key
+credentials.*
+secrets.*
+
+# AI agent local settings
+.claude/
+.codex/
+.agents/
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Build outputs and caches
+dist/
+build/
+.cache/
