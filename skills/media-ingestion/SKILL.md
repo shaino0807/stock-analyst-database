@@ -28,6 +28,10 @@ Run from the project root.
 .\scripts\metadata-only.ps1 -Url "https://example.com/video"
 ```
 
+`download-video.ps1` defaults to `-MaxHeight 1080` to avoid accidental 4K downloads. Use `-MaxHeight 360` for lightweight tests or `-MaxHeight 2160` only when a high-resolution local reference is actually needed.
+
+Subtitle extraction defaults to `zh-TW,zh-Hant,zh-Hans,en` to avoid requesting every auto-translated caption track from YouTube. Pass `-SubtitleLanguages "zh-TW,en"` or another explicit list when the workflow needs different languages.
+
 Batch mode:
 
 ```powershell

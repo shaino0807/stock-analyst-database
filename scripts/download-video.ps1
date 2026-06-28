@@ -3,6 +3,8 @@ param(
     [string]$Url,
     [string]$BatchFile,
     [string]$OutputDir = 'outputs/media',
+    [ValidateRange(144, 4320)]
+    [int]$MaxHeight = 1080,
     [switch]$AllowPlaylist,
     [switch]$DryRun
 )
@@ -19,7 +21,7 @@ foreach ($item in $urls) {
         '--no-overwrites',
         '--merge-output-format', 'mp4',
         '--ffmpeg-location', $ffmpegPath,
-        '-f', 'bestvideo*+bestaudio/best',
+        '-f', "bv*[height<=$MaxHeight][ext=mp4]+ba[ext=m4a]/bv*[height<=$MaxHeight]+ba/b[height<=$MaxHeight]/best",
         '-o', (Join-Path $videoDir '%(upload_date>%Y-%m-%d)s_%(title).180B_[%(id)s].%(ext)s')
     )
     $arguments = Add-PlaylistPolicy -Arguments $arguments -AllowPlaylist:$AllowPlaylist
@@ -27,4 +29,3 @@ foreach ($item in $urls) {
 
     Invoke-YtDlp -Arguments $arguments -DryRun:$DryRun
 }
-
