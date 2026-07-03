@@ -1,0 +1,7 @@
+﻿# Source: 股票分析師資料庫 subtitle targets from update-we178-knowledge.ps1
+# Updated: 2026-07-03 22:12:55 +08:00
+# One public YouTube video URL per line.
+https://www.youtube.com/watch?v=0_YPZSpoGbM
+https://www.youtube.com/watch?v=1BaIzG8Jn64
+https://www.youtube.com/watch?v=WYe1vsK0dMU
+https://www.youtube.com/watch?v=Vtw_I3COjes

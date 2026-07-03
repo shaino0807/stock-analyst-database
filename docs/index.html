@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>股票分析師資料庫</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #5f6b77;
+      --line: #d8dee7;
+      --paper: #f7f8fb;
+      --panel: #ffffff;
+      --accent: #0f766e;
+      --warn: #9a3412;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Noto Sans TC", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: end;
+      padding: 28px 0 20px;
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(28px, 5vw, 44px);
+      letter-spacing: 0;
+    }
+    p { margin: 0; color: var(--muted); }
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    nav a {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 10px;
+      background: var(--panel);
+    }
+    main { padding: 22px 0 36px; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 92px;
+    }
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .search {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .searchbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 11px 12px;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+    button {
+      border: 0;
+      border-radius: 6px;
+      padding: 11px 16px;
+      font: inherit;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent);
+      cursor: pointer;
+    }
+    .meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .results {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .item {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+    .item:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .item h2 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+    .chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 8px 0;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      color: var(--muted);
+      font-size: 12px;
+      background: #fbfcfd;
+    }
+    .missing { color: var(--warn); font-weight: 700; }
+    .links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+    footer {
+      padding: 20px 0 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 760px) {
+      .top, .searchbar { grid-template-columns: 1fr; }
+      nav { justify-content: flex-start; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 440px) {
+      .stats { grid-template-columns: 1fr; }
+      .wrap { width: min(100% - 20px, 1180px); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap top">
+      <div>
+        <h1>股票分析師資料庫</h1>
+        <p>WE178 公開影片的 metadata、公開字幕與二次資料索引。此頁不包含原始音訊或影片。</p>
+      </div>
+      <nav aria-label="資料連結">
+        <a href="knowledge/we178/index.md">索引</a>
+        <a href="knowledge/we178/SEARCH.md">使用方式</a>
+        <a href="knowledge/we178/INGESTION_STATUS.md">狀態</a>
+        <a href="closeout-2026-07-03.md">收工紀錄</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="stats" aria-label="資料狀態">
+      <div class="stat"><strong id="stat-total">2007</strong><span>公開影片 URL</span></div>
+      <div class="stat"><strong id="stat-notes">2007</strong><span>二次資料筆記</span></div>
+      <div class="stat"><strong id="stat-ready">529</strong><span>有公開字幕文字</span></div>
+      <div class="stat"><strong id="stat-missing">1478</strong><span>尚缺逐字稿</span></div>
+    </section>
+    <section class="search" aria-label="搜尋">
+      <div class="searchbar">
+        <input id="query" type="search" placeholder="輸入股票、公司、題材、日期或影片標題" autocomplete="off">
+        <button id="run" type="button">搜尋</button>
+      </div>
+      <div class="meta">
+        <span id="load-state">載入索引中...</span>
+        <span>預設顯示前 30 筆符合結果</span>
+      </div>
+      <div id="results" class="results"></div>
+    </section>
+  </main>
+  <footer class="wrap">
+    本資料庫用於研究、摘要、來源引用與內部分析；投資判斷仍需搭配即時行情、財報與風險控管。
+  </footer>
+  <script>
+    const state = { rows: [] };
+    const input = document.getElementById("query");
+    const results = document.getElementById("results");
+    const loadState = document.getElementById("load-state");
+
+    function text(value) {
+      return value == null ? "" : String(value);
+    }
+
+    function localKnowledgePath(path) {
+      return text(path).replaceAll("\\", "/").replace(/^.*?knowledge\/we178\//, "knowledge/we178/");
+    }
+
+    function rowText(row) {
+      return [
+        row.video_id,
+        row.title,
+        row.upload_date,
+        row.topics,
+        row.entities,
+        row.hashtags,
+        row.stances
+      ].flat().map(text).join(" ").toLowerCase();
+    }
+
+    function render(rows) {
+      const shown = rows.slice(0, 30);
+      results.innerHTML = "";
+      if (!shown.length) {
+        results.innerHTML = "<p>沒有符合的二次資料。</p>";
+        return;
+      }
+      const frag = document.createDocumentFragment();
+      shown.forEach((row) => {
+        const item = document.createElement("article");
+        item.className = "item";
+        const notePath = localKnowledgePath(row.secondary_note_path);
+        const chips = [...(row.topics || []), ...(row.entities || []), ...(row.hashtags || []).slice(0, 5)];
+        item.innerHTML = `
+          <h2>${text(row.title)}</h2>
+          <p>${text(row.upload_date)} · ${text(row.video_id)} · ${row.transcript_missing ? '<span class="missing">逐字稿缺口</span>' : '有公開字幕文字'}</p>
+          <div class="chips">${chips.map((chip) => `<span class="chip">${text(chip)}</span>`).join("")}</div>
+          <div class="links">
+            <a href="${text(row.url)}">YouTube 來源</a>
+            ${notePath ? `<a href="${notePath}">二次資料筆記</a>` : ""}
+          </div>
+        `;
+        frag.appendChild(item);
+      });
+      results.appendChild(frag);
+      loadState.textContent = `找到 ${rows.length} 筆，顯示 ${shown.length} 筆`;
+    }
+
+    function search() {
+      const q = input.value.trim().toLowerCase();
+      const rows = q ? state.rows.filter((row) => rowText(row).includes(q)) : state.rows;
+      render(rows);
+    }
+
+    document.getElementById("run").addEventListener("click", search);
+    input.addEventListener("input", search);
+
+    fetch("knowledge/we178/index.jsonl")
+      .then((response) => response.text())
+      .then((body) => {
+        state.rows = body.split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line));
+        const missing = state.rows.filter((row) => row.transcript_missing).length;
+        document.getElementById("stat-total").textContent = state.rows.length;
+        document.getElementById("stat-notes").textContent = state.rows.length;
+        document.getElementById("stat-missing").textContent = missing;
+        document.getElementById("stat-ready").textContent = state.rows.length - missing;
+        loadState.textContent = `索引已載入 ${state.rows.length} 筆`;
+        render(state.rows);
+      })
+      .catch((error) => {
+        loadState.textContent = `索引載入失敗：${error.message}`;
+      });
+  </script>
+</body>
+</html>

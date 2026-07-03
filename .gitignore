@@ -21,6 +21,9 @@ secrets.*
 .codex/
 .agents/
 
+# Local ASR/transcription environment
+.venv-asr/
+
 # Node.js
 node_modules/
 package-lock.json
@@ -28,4 +31,6 @@ package-lock.json
 # Build outputs and caches
 dist/
 build/
+_site/
 .cache/
+logs/

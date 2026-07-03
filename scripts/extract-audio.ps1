@@ -6,6 +6,8 @@ param(
     [ValidateSet('m4a', 'mp3', 'wav', 'opus', 'flac')]
     [string]$AudioFormat = 'm4a',
     [switch]$AllowPlaylist,
+    [switch]$EstimateOnly,
+    [switch]$ConfirmStorageImpact,
     [switch]$DryRun
 )
 
@@ -14,6 +16,7 @@ param(
 $audioDir = Ensure-Directory -Path (Join-Path $OutputDir 'audio')
 $ffmpegPath = Get-FfmpegPath
 $urls = Get-UrlList -Url $Url -BatchFile $BatchFile
+$jobs = New-Object System.Collections.Generic.List[object]
 
 foreach ($item in $urls) {
     $arguments = @(
@@ -29,6 +32,25 @@ foreach ($item in $urls) {
     $arguments = Add-PlaylistPolicy -Arguments $arguments -AllowPlaylist:$AllowPlaylist
     $arguments += $item
 
-    Invoke-YtDlp -Arguments $arguments -DryRun:$DryRun
+    $jobs.Add([pscustomobject]@{
+        url = $item
+        arguments = $arguments
+    })
 }
 
+if ($EstimateOnly -or (-not $DryRun -and -not $ConfirmStorageImpact)) {
+    $estimates = @($jobs | ForEach-Object {
+        Get-YtDlpStorageEstimate -Arguments $_.arguments -Url $_.url
+    })
+    Write-StorageImpactNotice -Estimates $estimates -MediaKind 'audio' -OutputDirectory $audioDir
+
+    if ($EstimateOnly) {
+        return
+    }
+
+    throw 'Audio download blocked until storage impact is reviewed. Re-run with -ConfirmStorageImpact to download.'
+}
+
+foreach ($job in $jobs) {
+    Invoke-YtDlp -Arguments $job.arguments -DryRun:$DryRun
+}

@@ -1,0 +1,3 @@
+﻿# Source: batch-list-we178.txt missing local metadata subset
+# Updated: 2026-07-03 22:14:37 +08:00
+# One public YouTube video URL per line.

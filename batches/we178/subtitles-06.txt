@@ -1,0 +1,7 @@
+﻿# Source: batch-list-we178.txt
+# Chunk: 6
+# Updated: 2026-07-02 09:34:48 +08:00
+# One public YouTube video URL per line.
+https://www.youtube.com/watch?v=pKuEMLWXpEI
+https://www.youtube.com/watch?v=PHoYnHl5Zss
+https://www.youtube.com/watch?v=pWKgImXwhhQ
