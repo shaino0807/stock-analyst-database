@@ -282,7 +282,7 @@
     fetch("knowledge/we178/index.jsonl")
       .then((response) => response.text())
       .then((body) => {
-        state.rows = body.split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line));
+        state.rows = body.split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line.replace(/^\uFEFF/, "")));
         const missing = state.rows.filter((row) => row.transcript_missing).length;
         document.getElementById("stat-total").textContent = state.rows.length;
         document.getElementById("stat-notes").textContent = state.rows.length;
