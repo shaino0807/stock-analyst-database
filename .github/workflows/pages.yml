@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - docs/**
+      - knowledge/we178/**
       - .github/workflows/pages.yml
   workflow_dispatch:
 
@@ -27,12 +28,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Build static site
+        shell: bash
+        run: |
+          mkdir -p _site
+          cp -R docs/. _site/
+          mkdir -p _site/knowledge
+          cp -R knowledge/we178 _site/knowledge/we178
+          touch _site/.nojekyll
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs
+          path: _site
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
